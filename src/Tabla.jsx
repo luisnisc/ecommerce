@@ -70,9 +70,21 @@ export default function Tabla() {
             content: "sweet-alert-content",
           },
         }).then(() => {
-          // Actualiza el estado de los datos eliminando el producto que se acaba de eliminar
           const deleteProductId = Number(deleteProduct);
-          setData(data.filter((product) => product.id !== deleteProductId));
+          const newData = data.filter(
+            (product) => product.id !== deleteProductId
+          );
+          setData(newData);
+
+          // Comprueba si la página actual tiene datos
+          const startIndex = (currentPage - 1) * itemsPerPage;
+          const endIndex = startIndex + itemsPerPage;
+          const currentPageData = newData.slice(startIndex, endIndex);
+
+          // Si la página actual no tiene datos y no es la primera página, disminuye el número de la página actual en uno
+          if (currentPageData.length === 0 && currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+          }
         });
       }
     } catch (error) {

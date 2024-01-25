@@ -42,7 +42,7 @@ app.post("/productos", (req, res) => {
     }
   );
 });
-app.delete('/productos', (req, res) => {
+app.delete("/productos", (req, res) => {
   const id = req.body.id;
   const sql = `DELETE FROM productos WHERE id = ?`;
 
@@ -52,7 +52,9 @@ app.delete('/productos', (req, res) => {
       res.status(500).send("Error al eliminar un producto");
     } else {
       if (results.affectedRows === 0) {
-        res.status(404).send({ message: `Producto con id ${id} no encontrado` });
+        res
+          .status(404)
+          .send({ message: `Producto con id ${id} no encontrado` });
       } else {
         res.status(200).send({ message: `Producto con id ${id} eliminado` });
       }

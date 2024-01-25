@@ -1,28 +1,27 @@
-#deleteForm{
-    
-    margin-left:-2em
+#deleteForm {
+  margin-left: -2em;
 }
-#padre{
-    margin-left:31.8%;
-    margin-top:12em;
-    height:588px;
+#padre {
+  margin-left: 31.8%;
+  margin-top: 12em;
+  height: 588px;
 }
-table{
-    padding-left:5px;
+table {
+  padding-left: 5px;
 }
-th{
-    width: 10em;
-    user-select:none
-    
+th {
+  width: 10em;
+  user-select: none;
 }
 
-tr{
-    min-height: 50px;
+tr {
+  min-height: 50px;
 }
 .sweet-alert-button {
-    display: block;
-    margin: 0 auto;
-  }
-  .sweet-alert-title, .sweet-alert-content {
-    color: #d1d5db;
-  }
+  display: block;
+  margin: 0 auto;
+}
+.sweet-alert-title,
+.sweet-alert-content {
+  color: #d1d5db;
+}
