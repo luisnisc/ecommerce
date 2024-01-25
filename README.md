@@ -16,11 +16,11 @@ La aplicación utiliza React para la interfaz de usuario y Vite para un desarrol
 
 ## Cómo se utiliza
 
-1. Clona el repositorio en tu máquina local utilizando `git clone <url_del_repositorio>`.
-2. Navega al directorio del proyecto con `cd <nombre_del_directorio>`.
+1. Clona el repositorio en tu máquina local utilizando `git clone [<url_del_repositorio>](https://github.com/luisnisc/ecommerce.git)`.
+2. Navega al directorio del proyecto con `cd ecommerce`.
 3. Instala las dependencias con `npm install`.
 4. Inicia el servidor de desarrollo con `npm run dev`.
-5. Abre tu navegador y navega a `http://localhost:3000` para ver la aplicación.
+5. Abre tu navegador y navega a `http://localhost:5173` para ver la aplicación.
 
 ## Herramientas utilizadas
 
