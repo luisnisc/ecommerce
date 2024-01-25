@@ -16,7 +16,7 @@ La aplicación utiliza React para la interfaz de usuario y Vite para un desarrol
 
 ## Cómo se utiliza
 
-1. Clona el repositorio en tu máquina local utilizando `git clone [<url_del_repositorio>](https://github.com/luisnisc/ecommerce.git)`.
+1. Clona el repositorio en tu máquina local utilizando `git clone https://github.com/luisnisc/ecommerce.git`.
 2. Navega al directorio del proyecto con `cd ecommerce`.
 3. Instala las dependencias con `npm install`.
 4. Inicia el servidor de desarrollo con `npm run dev`.
@@ -26,8 +26,8 @@ La aplicación utiliza React para la interfaz de usuario y Vite para un desarrol
 
 - **React**: Una biblioteca de JavaScript para construir interfaces de usuario.
 - **Vite**: Una herramienta de construcción que proporciona un desarrollo más rápido y un menor tiempo de construcción.
-- **Tailwind CSS**: Un marco de trabajo de CSS de utilidad primero para un desarrollo de diseño rápido.
-- **Bootstrap**: Un marco de trabajo de CSS para desarrollar sitios web responsivos y móviles primero.
+- **Tailwind CSS**: Un marco de trabajo de CSS de utilidad para un desarrollo de diseño rápido.
+- **Bootstrap**: Un marco de trabajo de CSS para desarrollar sitios web responsivos y móviles.
 - **SweetAlert2**: Una biblioteca de JavaScript para crear alertas bonitas y personalizadas.
 - **npm**: Un gestor de paquetes para JavaScript, utilizado para instalar y gestionar las dependencias del proyecto.
 - **MySQL**: Un sistema de gestión de bases de datos relacional utilizado para almacenar los datos de los productos.
