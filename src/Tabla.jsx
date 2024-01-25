@@ -6,6 +6,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 import "./Tabla.css";
 
 export default function Tabla() {
@@ -244,80 +245,86 @@ export default function Tabla() {
           )}
         </table>
       </div>
-      <div className=" grid grid-cols-2 grid-rows-1 w-max gap-20">
-        <div>
-          <h3 className="text-2xl">
-            <AddIcon />
-            Nuevo Producto
-          </h3>
-          <form onSubmit={handleSubmit}>
-            <div className="mt-2 ml-2">
-              <label>
-                Producto:
-                <input
-                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
-                  type="text"
-                  value={producto}
-                  onChange={(e) => setProducto(e.target.value)}
-                />
-              </label>
-            </div>
-            <div className="mt-2 ml-2">
-              <label>
-                Precio:
-                <input
-                  className="border-2 border-gray-500 rounded-md ml-9 p-1 text-black"
-                  type="number"
-                  value={precio}
-                  onChange={(e) => setPrecio(e.target.value)}
-                />
-              </label>
-            </div>
-            <div className="mt-2 ml-2">
-              <label>
-                Stock:
-                <input
-                  className="border-2 border-gray-500 rounded-md ml-11 p-1 text-black"
-                  type="number"
-                  value={stock}
-                  onChange={(e) => setStock(e.target.value)}
-                />
-              </label>
-            </div>
-            <button
-              className="bg-blue-300 p-2 rounded-md text-white hover:bg-blue-600 mt-6 ml-16"
-              type="submit"
-            >
-              Agregar producto
-            </button>
-          </form>
+      <motion.div
+        initial={{ transform: "translateY(10vw)", opacity: 0}}
+        animate={{ transform: "translateY(0)", opacity: 1}}
+        transition={{ duration: 0.5}}
+      >
+        <div className=" grid grid-cols-2 grid-rows-1 w-max gap-20">
+          <div>
+            <h3 className="text-2xl">
+              <AddIcon />
+              Nuevo Producto
+            </h3>
+            <form onSubmit={handleSubmit}>
+              <div className="mt-2 ml-2">
+                <label>
+                  Producto:
+                  <input
+                    className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
+                    type="text"
+                    value={producto}
+                    onChange={(e) => setProducto(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className="mt-2 ml-2">
+                <label>
+                  Precio:
+                  <input
+                    className="border-2 border-gray-500 rounded-md ml-9 p-1 text-black"
+                    type="number"
+                    value={precio}
+                    onChange={(e) => setPrecio(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className="mt-2 ml-2">
+                <label>
+                  Stock:
+                  <input
+                    className="border-2 border-gray-500 rounded-md ml-11 p-1 text-black"
+                    type="number"
+                    value={stock}
+                    onChange={(e) => setStock(e.target.value)}
+                  />
+                </label>
+              </div>
+              <button
+                className="bg-blue-300 p-2 rounded-md text-white hover:bg-blue-600 mt-6 ml-16"
+                type="submit"
+              >
+                Agregar producto
+              </button>
+            </form>
+          </div>
+          <div id="deleteForm">
+            <h3 className="text-2xl">
+              <DeleteForeverIcon />
+              Eliminar Producto
+            </h3>
+            <form onSubmit={handleDelete}>
+              <div className="mt-2 ml-2">
+                <label>
+                  ID Producto:
+                  <input
+                    className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
+                    type="text"
+                    value={deleteProduct}
+                    onChange={(e) => setDeleteProduct(e.target.value)}
+                  />
+                </label>
+              </div>
+              <button
+                className="bg-red-300 p-2 rounded-md text-white hover:bg-red-600 mt-6 ml-16"
+                type="submit"
+              >
+                Eliminar producto
+              </button>
+            </form>
+          </div>
         </div>
-        <div id="deleteForm">
-          <h3 className="text-2xl">
-            <DeleteForeverIcon />
-            Eliminar Producto
-          </h3>
-          <form onSubmit={handleDelete}>
-            <div className="mt-2 ml-2">
-              <label>
-                ID Producto:
-                <input
-                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
-                  type="text"
-                  value={deleteProduct}
-                  onChange={(e) => setDeleteProduct(e.target.value)}
-                />
-              </label>
-            </div>
-            <button
-              className="bg-red-300 p-2 rounded-md text-white hover:bg-red-600 mt-6 ml-16"
-              type="submit"
-            >
-              Eliminar producto
-            </button>
-          </form>
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
