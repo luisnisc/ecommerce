@@ -1,18 +1,18 @@
-# React + Vite
+# Aplicación de Inventario de Tienda E-commerce
 
-Este proyecto es una aplicación web desarrollada con React y Vite. La aplicación permite a los usuarios gestionar productos, incluyendo la adición, visualización y eliminación de productos.
+Esta aplicación simula el inventario de una tienda e-commerce. Permite a los usuarios gestionar productos, incluyendo la adición, visualización y eliminación de productos. La aplicación funciona con un servidor intermediario que se comunica con una base de datos MySQL.
 
 ## Funcionalidades
 
-- **Adición de productos**: Los usuarios pueden añadir nuevos productos a la base de datos. Esto se realiza a través de un formulario que recoge los detalles del producto como el nombre, precio y stock.
+- **Adición de productos**: Los usuarios pueden añadir nuevos productos a la base de datos. Esto se realiza a través de un formulario que recoge los detalles del producto como el nombre, precio y stock. Cuando se envía el formulario, se realiza una petición POST al servidor, que luego añade el producto a la base de datos MySQL.
 
-- **Visualización de productos**: Los usuarios pueden ver una lista de todos los productos disponibles. Los productos se muestran en una tabla con columnas para el nombre del producto, precio y stock. También hay una columna de acciones donde los usuarios pueden eliminar el producto.
+- **Visualización de productos**: Los usuarios pueden ver una lista de todos los productos disponibles. Los productos se muestran en una tabla con columnas para el nombre del producto, precio y stock. La tabla se actualiza automáticamente cuando se añade o se elimina un producto.
 
-- **Eliminación de productos**: Los usuarios pueden eliminar productos de la base de datos. Esto se realiza a través de un botón de eliminar en la columna de acciones de la tabla de productos.
+- **Eliminación de productos**: Los usuarios pueden eliminar productos de la base de datos. Esto se realiza a través de un botón de eliminar en la columna de acciones de la tabla de productos. Cuando se presiona el botón, se realiza una petición DELETE al servidor, que luego elimina el producto de la base de datos MySQL.
 
 ## Cómo funciona
 
-La aplicación utiliza React para la interfaz de usuario y Vite para un desarrollo más rápido y un menor tiempo de construcción. Los datos de los productos se almacenan en una base de datos (especificar qué base de datos se utiliza). Cuando se añade un nuevo producto, se realiza una petición POST a la base de datos. Cuando se elimina un producto, se realiza una petición DELETE.
+La aplicación utiliza React para la interfaz de usuario y Vite para un desarrollo más rápido y un menor tiempo de construcción. Los datos de los productos se almacenan en una base de datos MySQL. La aplicación se comunica con la base de datos a través de un servidor intermediario, que maneja las peticiones POST y DELETE.
 
 ## Cómo se utiliza
 
@@ -30,3 +30,4 @@ La aplicación utiliza React para la interfaz de usuario y Vite para un desarrol
 - **Bootstrap**: Un marco de trabajo de CSS para desarrollar sitios web responsivos y móviles primero.
 - **SweetAlert2**: Una biblioteca de JavaScript para crear alertas bonitas y personalizadas.
 - **npm**: Un gestor de paquetes para JavaScript, utilizado para instalar y gestionar las dependencias del proyecto.
+- **MySQL**: Un sistema de gestión de bases de datos relacional utilizado para almacenar los datos de los productos.
