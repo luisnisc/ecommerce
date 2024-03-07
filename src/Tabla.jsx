@@ -152,7 +152,7 @@ export default function Tabla() {
   return (
     <div
       id="padre"
-      className="bg-gray-700 w-max text-gray-300 p-4 rounded-md"
+      className="bg-gray-700 w-max text-gray-300 rounded-md pl-6 pr-3 pt-4 pb-1"
     >
       <div className="flex justify-center items-center content-center w-max">
         <table>
@@ -245,11 +245,6 @@ export default function Tabla() {
           )}
         </table>
       </div>
-      <motion.div
-        initial={{ transform: "translateY(10vw)", opacity: 0}}
-        animate={{ transform: "translateY(0)", opacity: 1}}
-        transition={{ duration: 0.5}}
-      >
         <div className=" grid grid-cols-2 grid-rows-1 w-max gap-20">
           <div>
             <h3 className="text-2xl">
@@ -324,7 +319,7 @@ export default function Tabla() {
             </form>
           </div>
         </div>
-      </motion.div>
+ 
     </div>
   );
 }

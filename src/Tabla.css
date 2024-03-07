@@ -5,9 +5,12 @@
   margin-left: 31.8%;
   margin-top: 12em;
   height: 588px;
+  width: max-content;
+  
 }
 table {
   padding-left: 5px;
+  
 }
 th {
   width: 10em;
