@@ -46,13 +46,15 @@ export default function Tabla() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/productos", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: deleteProduct }),
-      });
+      const response = await fetch(
+        `http://localhost:3000/sales/${deleteProduct}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -95,7 +97,7 @@ export default function Tabla() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/productos", {
+      const response = await fetch("http://localhost:3000/sales", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -140,7 +142,7 @@ export default function Tabla() {
     }
   };
   useEffect(() => {
-    fetch("http://localhost:3000/productos")
+    fetch("http://localhost:3000/sales")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
@@ -245,81 +247,80 @@ export default function Tabla() {
           )}
         </table>
       </div>
-        <div className=" grid grid-cols-2 grid-rows-1 w-max gap-20">
-          <div>
-            <h3 className="text-2xl">
-              <AddIcon />
-              Nuevo Producto
-            </h3>
-            <form onSubmit={handleSubmit}>
-              <div className="mt-2 ml-2">
-                <label>
-                  Producto:
-                  <input
-                    className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
-                    type="text"
-                    value={producto}
-                    onChange={(e) => setProducto(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div className="mt-2 ml-2">
-                <label>
-                  Precio:
-                  <input
-                    className="border-2 border-gray-500 rounded-md ml-9 p-1 text-black"
-                    type="number"
-                    value={precio}
-                    onChange={(e) => setPrecio(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div className="mt-2 ml-2">
-                <label>
-                  Stock:
-                  <input
-                    className="border-2 border-gray-500 rounded-md ml-11 p-1 text-black"
-                    type="number"
-                    value={stock}
-                    onChange={(e) => setStock(e.target.value)}
-                  />
-                </label>
-              </div>
-              <button
-                className="bg-blue-300 p-2 rounded-md text-white hover:bg-blue-600 mt-6 ml-16"
-                type="submit"
-              >
-                Agregar producto
-              </button>
-            </form>
-          </div>
-          <div id="deleteForm">
-            <h3 className="text-2xl">
-              <DeleteForeverIcon />
-              Eliminar Producto
-            </h3>
-            <form onSubmit={handleDelete}>
-              <div className="mt-2 ml-2">
-                <label>
-                  ID Producto:
-                  <input
-                    className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
-                    type="text"
-                    value={deleteProduct}
-                    onChange={(e) => setDeleteProduct(e.target.value)}
-                  />
-                </label>
-              </div>
-              <button
-                className="bg-red-300 p-2 rounded-md text-white hover:bg-red-600 mt-6 ml-16"
-                type="submit"
-              >
-                Eliminar producto
-              </button>
-            </form>
-          </div>
+      <div className=" grid grid-cols-2 grid-rows-1 w-max gap-20">
+        <div>
+          <h3 className="text-2xl">
+            <AddIcon />
+            Nuevo Producto
+          </h3>
+          <form onSubmit={handleSubmit}>
+            <div className="mt-2 ml-2">
+              <label>
+                Producto:
+                <input
+                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
+                  type="text"
+                  value={producto}
+                  onChange={(e) => setProducto(e.target.value)}
+                />
+              </label>
+            </div>
+            <div className="mt-2 ml-2">
+              <label>
+                Precio:
+                <input
+                  className="border-2 border-gray-500 rounded-md ml-9 p-1 text-black"
+                  type="number"
+                  value={precio}
+                  onChange={(e) => setPrecio(e.target.value)}
+                />
+              </label>
+            </div>
+            <div className="mt-2 ml-2">
+              <label>
+                Stock:
+                <input
+                  className="border-2 border-gray-500 rounded-md ml-11 p-1 text-black"
+                  type="number"
+                  value={stock}
+                  onChange={(e) => setStock(e.target.value)}
+                />
+              </label>
+            </div>
+            <button
+              className="bg-blue-300 p-2 rounded-md text-white hover:bg-blue-600 mt-6 ml-16"
+              type="submit"
+            >
+              Agregar producto
+            </button>
+          </form>
         </div>
- 
+        <div id="deleteForm">
+          <h3 className="text-2xl">
+            <DeleteForeverIcon />
+            Eliminar Producto
+          </h3>
+          <form onSubmit={handleDelete}>
+            <div className="mt-2 ml-2">
+              <label>
+                ID Producto:
+                <input
+                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
+                  type="text"
+                  value={deleteProduct}
+                  onChange={(e) => setDeleteProduct(e.target.value)}
+                />
+              </label>
+            </div>
+            <button
+              className="bg-red-300 p-2 rounded-md text-white hover:bg-red-600 mt-6 ml-16"
+              type="submit"
+            >
+              Eliminar producto
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
