@@ -237,16 +237,19 @@ export default function Tabla(ip) {
               </tr>
             ))}
           </tbody>
+          <div className="flex items-centerw-max mt-1">
           {currentPage > 1 && (
             <button onClick={() => setCurrentPage(currentPage - 1)}>
               <ArrowCircleLeftIcon />
             </button>
           )}
+          <span className="px-2 bg-white text-black rounded-full ml-1 mr-1 mt-0.5">{currentPage}</span>
           {currentPage < totalPages && (
             <button onClick={() => setCurrentPage(currentPage + 1)}>
               <ArrowCircleRightIcon />
             </button>
           )}
+          </div>
         </table>
       </div>
       <div className=" grid grid-cols-2 grid-rows-1 w-max gap-20">
