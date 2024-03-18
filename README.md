@@ -35,5 +35,4 @@ La aplicación utiliza React para la interfaz de usuario y Vite para un desarrol
 - **Bootstrap**: Un marco de trabajo de CSS para desarrollar sitios web responsivos y móviles.
 - **SweetAlert2**: Una biblioteca de JavaScript para crear alertas bonitas y personalizadas.
 - **npm**: Un gestor de paquetes para JavaScript, utilizado para instalar y gestionar las dependencias del proyecto.
-- **MySQL**: Un sistema de gestión de bases de datos relacional utilizado para almacenar los datos de los productos.
-- **Framer-Motion": Una biblioteca para poder implementar animaciones, las cuales mejoran la experiencia del usuario
+- **MongoDB**: Una base de datos NoSQL orientada a documentos, utilizada en este proyecto para almacenar y recuperar datos.
