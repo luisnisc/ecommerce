@@ -14,13 +14,18 @@ Esta aplicación simula el inventario de una tienda e-commerce. Permite a los us
 
 La aplicación utiliza React para la interfaz de usuario y Vite para un desarrollo más rápido y un menor tiempo de construcción. Los datos de los productos se almacenan en una base de datos MySQL. La aplicación se comunica con la base de datos a través de un servidor intermediario, que maneja las peticiones POST y DELETE.
 
-## Cómo se utiliza
+## Arrancar la aplicación
 
 1. Clona el repositorio en tu máquina local utilizando `git clone https://github.com/luisnisc/ecommerce.git`.
 2. Navega al directorio del proyecto con `cd ecommerce`.
 3. Instala las dependencias con `npm install`.
 4. Inicia el servidor de desarrollo con `npm run dev`.
 5. Abre tu navegador y navega a `http://localhost:5173` para ver la aplicación.
+
+## Encender el servidor node
+
+1. Ves al directorio del servidor `cd src/server`
+2. Ejecuta el servidor `node server.js`
 
 ## Herramientas utilizadas
 
