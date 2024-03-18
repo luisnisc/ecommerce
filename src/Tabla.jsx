@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import "./Tabla.css";
 
-export default function Tabla() {
+export default function Tabla(ip) {
   const [data, setData] = useState([]);
   const [producto, setProducto] = useState("");
   const [precio, setPrecio] = useState("");
@@ -118,7 +118,7 @@ export default function Tabla() {
             " añadido"
         );
         const newProduct = await response.json();
-        console.log(newProduct); // Añade esta línea para ver la estructura de la respuesta
+        console.log(newProduct);
 
         Swal.fire({
           title: "Producto Creado",
@@ -133,8 +133,10 @@ export default function Tabla() {
             content: "sweet-alert-content",
           },
         }).then(() => {
-          // Actualiza el estado de los datos añadiendo el producto que se acaba de crear
-          window.location.reload();
+          setData([...data, newProduct]);
+          setProducto("");
+          setPrecio("");
+          setStock("");
         });
       }
     } catch (error) {

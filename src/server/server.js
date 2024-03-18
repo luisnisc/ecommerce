@@ -2,12 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config({path: '../../.env'});
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-mongoose.connect('mongodb+srv://luisnisc:30may2005@ecommerce.kduaa3f.mongodb.net/productos');
+mongoose.connect(process.env.MONGODB_URI);
 
 const productSchema = new mongoose.Schema({
   id: { type: Number, required: true, unique: true },
