@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import "./Tabla.css";
 
-export default function Tabla(ip) {
+export default function Tabla() {
   const [data, setData] = useState([]);
   const [producto, setProducto] = useState("");
   const [precio, setPrecio] = useState("");
