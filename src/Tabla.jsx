@@ -9,6 +9,10 @@ import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import "./Tabla.css";
 
+/**
+ * Componente de tabla que muestra una lista de productos.
+ * @returns {JSX.Element} Elemento JSX que representa la tabla de productos.
+ */
 export default function Tabla() {
   const [data, setData] = useState([]);
   const [producto, setProducto] = useState("");
@@ -19,6 +23,11 @@ export default function Tabla() {
   const [sortDirection, setSortDirection] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  /**
+   * Maneja el ordenamiento de la tabla por un campo específico.
+   * @param {string} field - El campo por el cual se va a ordenar la tabla.
+   */
   const handleSort = (field) => {
     let direction = "asc";
     if (sortField === field && sortDirection === "asc") {
@@ -29,7 +38,8 @@ export default function Tabla() {
     setSortArrow(!sortArrow);
   };
 
-  let sortedProducts = [...data]; // Asume que 'products' es tu estado o prop con los datos de los productos.
+  // Ordena los productos en base al campo seleccionado y la dirección de ordenamiento
+  let sortedProducts = [...data];
   if (sortField !== null) {
     sortedProducts.sort((a, b) => {
       if (a[sortField] < b[sortField]) {
@@ -41,13 +51,19 @@ export default function Tabla() {
       return 0;
     });
   }
+
   const [deleteProduct, setDeleteProduct] = useState("");
-  const handleDelete = async (event) => {
+
+  /**
+   * Maneja la eliminación de un producto.
+   * @param {Event} event - El evento de click del botón de eliminar.
+   */
+  const handleDelete = async (id) => {
     event.preventDefault();
 
     try {
       const response = await fetch(
-        `http://localhost:3000/sales/${deleteProduct}`,
+        `http://localhost:3000/sales/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -57,9 +73,24 @@ export default function Tabla() {
       );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          html: '<p style="color: #ffffff;">Algo a salido mal!</p>', // Cambia el color aquí
+          footer: '<p style="color: #ffffff;">Producto no encontrado</p>', // Cambia el color aquí
+          confirmButtonText: "OK",
+          confirmButtonColor: "#de6d6d",
+          background: "#272727",
+          customClass: {
+            confirmButton: "sweet-alert-button",
+            title: "sweet-alert-title",
+            content: "sweet-alert-content",
+          },
+        });
       } else {
-        console.log(`Producto: ${deleteProduct} eliminado`);
+        console.log(`Producto: ${id} eliminado`);
+
+        // Muestra una alerta de éxito y actualiza los datos de la tabla
         Swal.fire({
           title: "Producto Eliminado",
           text: "",
@@ -73,7 +104,7 @@ export default function Tabla() {
             content: "sweet-alert-content",
           },
         }).then(() => {
-          const deleteProductId = Number(deleteProduct);
+          const deleteProductId = Number(id);
           const newData = data.filter(
             (product) => product.id !== deleteProductId
           );
@@ -94,6 +125,11 @@ export default function Tabla() {
       console.error("Error:", error);
     }
   };
+
+  /**
+   * Maneja el envío del formulario para agregar un nuevo producto.
+   * @param {Event} event - El evento de submit del formulario.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -120,6 +156,7 @@ export default function Tabla() {
         const newProduct = await response.json();
         console.log(newProduct);
 
+        // Muestra una alerta de éxito y actualiza los datos de la tabla
         Swal.fire({
           title: "Producto Creado",
           text: "",
@@ -143,25 +180,31 @@ export default function Tabla() {
       console.error("Error:", error);
     }
   };
+
+  // Obtiene los datos de los productos al cargar el componente
   useEffect(() => {
     fetch("http://localhost:3000/sales")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
   }, []);
+
+  // Calcula los índices de los elementos a mostrar en la página actual
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedProducts.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+
   return (
     <div
       id="padre"
-      className="bg-gray-700 w-max text-gray-300 rounded-md pl-6 pr-3 pt-4 pb-1"
+      className="bg-gray-700 w-max text-gray-300 rounded-md pl-6 pr-3 pt-4 pb-1 min-h-max"
     >
-      <div className="flex justify-center items-center content-center w-max">
+      <div className="flex justify-center items-center content-center w-max ">
         <table>
           <thead>
             <tr className="bg-gray-800">
+              <th className="w-2"></th>
               <th onClick={() => handleSort("id")}>
                 ID Producto
                 {sortField === "id" ? (
@@ -230,6 +273,7 @@ export default function Tabla() {
                 key={product.id}
                 className="hover:bg-gray-700 transition-all"
               >
+                <td><button onClick = { () => handleDelete(product.id) }><DeleteForeverIcon/></button></td>
                 <td>{product.id}</td>
                 <td>{product.producto}</td>
                 <td>{parseFloat(product.precio).toFixed(2)}€</td>
@@ -238,21 +282,26 @@ export default function Tabla() {
             ))}
           </tbody>
           <div className="flex items-centerw-max mt-1">
-          {currentPage > 1 && (
-            <button onClick={() => setCurrentPage(currentPage - 1)}>
-              <ArrowCircleLeftIcon />
-            </button>
-          )}
-          <span className="px-2 bg-white text-black rounded-full ml-1 mr-1 mt-0.5">{currentPage}</span>
-          {currentPage < totalPages && (
-            <button onClick={() => setCurrentPage(currentPage + 1)}>
-              <ArrowCircleRightIcon />
-            </button>
-          )}
+            {currentPage > 1 && (
+              <button onClick={() => setCurrentPage(currentPage - 1)}>
+                <ArrowCircleLeftIcon />
+              </button>
+            )}
+            <span
+              id="currentPage"
+              className="px-2 bg-white text-black rounded-full ml-1 mr-1 mt-0.5"
+            >
+              {currentPage}
+            </span>
+            {currentPage < totalPages && (
+              <button onClick={() => setCurrentPage(currentPage + 1)}>
+                <ArrowCircleRightIcon />
+              </button>
+            )}
           </div>
         </table>
       </div>
-      <div className=" grid grid-cols-2 grid-rows-1 w-max gap-20">
+      <div className=" grid grid-cols-2 grid-rows-1 w-max gap-20 pb-4">
         <div>
           <h3 className="text-2xl">
             <AddIcon />
@@ -306,7 +355,7 @@ export default function Tabla() {
             Eliminar Producto
           </h3>
           <form onSubmit={handleDelete}>
-            <div className="mt-2 ml-2">
+            <div className="mt-2 ml-2 ">
               <label>
                 ID Producto:
                 <input
