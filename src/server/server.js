@@ -98,6 +98,25 @@ app.delete("/sales/:id", async (req, res) => {
     res.status(500).json({ message: "Error al eliminar el producto" });
   }
 });
+app.put("/sales/:id", async (req, res) => {
+  const { id } = req.params;
+  const update = req.body; // Aquí asumimos que los cambios vienen en el cuerpo de la solicitud
+  console.log(update);
+  try {
+    const product = await Product.findOneAndUpdate({ id: id }, update, { new: true }); // { new: true } devuelve el documento actualizado
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ message: `Producto con id: ${id} no encontrado` });
+    }
+
+    res.json({ message: `Producto: ${id} actualizado`, product: product });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al actualizar el producto" });
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));

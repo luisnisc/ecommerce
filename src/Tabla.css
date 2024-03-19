@@ -1,12 +1,18 @@
 #deleteForm {
   margin-left: -2em;
 }
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 #padre {
-  margin-left: 31.8%;
-  margin-top: 12em;
-  height: max-content;
-  width: max-content;
-  
+  position: sticky;
+
 }
 table {
   padding-left: 5px;
@@ -34,4 +40,7 @@ tr {
 }
 .sweet-alert-text{
   color: rgb(203, 203, 203);
+}
+.delete-icon:hover {
+  color: red;
 }

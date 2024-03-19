@@ -5,8 +5,9 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import EditIcon from "@mui/icons-material/Edit";
 import Swal from "sweetalert2";
-import { motion } from "framer-motion";
+
 import "./Tabla.css";
 
 /**
@@ -18,12 +19,15 @@ export default function Tabla() {
   const [producto, setProducto] = useState("");
   const [precio, setPrecio] = useState("");
   const [stock, setStock] = useState("");
+  const [editProducto, setEditProducto] = useState("");
+  const [editPrecio, setEditPrecio] = useState("");
+  const [editStock, setEditStock] = useState("");
   const [sortField, setSortField] = useState(null);
   const [sortArrow, setSortArrow] = useState(false);
   const [sortDirection, setSortDirection] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
+  
   /**
    * Maneja el ordenamiento de la tabla por un campo específico.
    * @param {string} field - El campo por el cual se va a ordenar la tabla.
@@ -52,8 +56,6 @@ export default function Tabla() {
     });
   }
 
-  const [deleteProduct, setDeleteProduct] = useState("");
-
   /**
    * Maneja la eliminación de un producto.
    * @param {Event} event - El evento de click del botón de eliminar.
@@ -62,15 +64,12 @@ export default function Tabla() {
     event.preventDefault();
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/sales/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3000/sales/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         Swal.fire({
@@ -125,11 +124,69 @@ export default function Tabla() {
       console.error("Error:", error);
     }
   };
+  const [update, setUpdate] = useState(false);
+  const [editProduct, setEditProduct] = useState("");
+  const handleEdit = async (event) => {
+    event.preventDefault();
+    try {
+      const body = {
+        producto: editProducto,
+        precio: editPrecio,
+        stock: editStock,
+      };
+      Object.keys(body).forEach((key) => body[key] === "" && delete body[key]);
 
-  /**
-   * Maneja el envío del formulario para agregar un nuevo producto.
-   * @param {Event} event - El evento de submit del formulario.
-   */
+      const response = await fetch(
+        `http://localhost:3000/sales/${editProduct}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      } else {
+        console.log(
+          "Producto: " +
+            producto +
+            " Precio: " +
+            precio +
+            " Stock: " +
+            stock +
+            " editado"
+        );
+        const newProduct = await response.json();
+        console.log(newProduct);
+
+        // Muestra una alerta de éxito y actualiza los datos de la tabla
+        Swal.fire({
+          title: "Producto Editado",
+          text: "",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#a5dc86",
+          background: "#272727",
+          customClass: {
+            confirmButton: "sweet-alert-button",
+            title: "sweet-alert-title",
+            content: "sweet-alert-content",
+          },
+        }).then(() => {
+          // Cambia el estado 'update' para forzar una actualización de la tabla
+          setUpdate(!update);
+          setEditProduct("");
+          setEditProducto("");
+          setEditPrecio("");
+          setEditStock("");
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -183,11 +240,14 @@ export default function Tabla() {
 
   // Obtiene los datos de los productos al cargar el componente
   useEffect(() => {
-    fetch("http://localhost:3000/sales")
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error(error));
-  }, []);
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:3000/sales");
+      const data = await response.json();
+      setData(data);
+    };
+
+    fetchData();
+  }, [update]);
 
   // Calcula los índices de los elementos a mostrar en la página actual
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -273,7 +333,17 @@ export default function Tabla() {
                 key={product.id}
                 className="hover:bg-gray-700 transition-all"
               >
-                <td><button onClick = { () => handleDelete(product.id) }><DeleteForeverIcon/></button></td>
+                <td>
+                  <button onClick={() => handleDelete(product.id)}>
+                    <DeleteForeverIcon
+                      sx={{
+                        "&:hover": {
+                          color: "red",
+                        },
+                      }}
+                    />
+                  </button>
+                </td>
                 <td>{product.id}</td>
                 <td>{product.producto}</td>
                 <td>{parseFloat(product.precio).toFixed(2)}€</td>
@@ -342,35 +412,66 @@ export default function Tabla() {
               </label>
             </div>
             <button
-              className="bg-blue-300 p-2 rounded-md text-white hover:bg-blue-600 mt-6 ml-16"
+              className="bg-green-300 p-2 rounded-md text-white hover:bg-green-600 mt-6 ml-16"
               type="submit"
             >
               Agregar producto
             </button>
           </form>
         </div>
-        <div id="deleteForm">
+        <div
+          id="editForm"
+          className=""
+        >
           <h3 className="text-2xl">
-            <DeleteForeverIcon />
-            Eliminar Producto
+            <EditIcon />
+            Editar Producto
           </h3>
-          <form onSubmit={handleDelete}>
-            <div className="mt-2 ml-2 ">
+          <form onSubmit={handleEdit}>
+            <div className="mt-2 ml-2 flex flex-col">
               <label>
                 ID Producto:
                 <input
-                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black"
+                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black "
                   type="text"
-                  value={deleteProduct}
-                  onChange={(e) => setDeleteProduct(e.target.value)}
+                  required={true}
+                  value={editProduct}
+                  onChange={(e) => setEditProduct(e.target.value)}
+                />
+              </label>
+              <label>
+                Nuevo Nombre:
+                <input
+                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black mt-2"
+                  type="text"
+                  value={editProducto}
+                  onChange={(e) => setEditProducto(e.target.value)}
+                />
+              </label>
+              <label>
+                Nuevo Precio:
+                <input
+                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black mt-2"
+                  type="number"
+                  value={editPrecio}
+                  onChange={(e) => setEditPrecio(e.target.value)}
+                />
+              </label>
+              <label>
+                Nuevo Stock:
+                <input
+                  className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black mt-2"
+                  type="number"
+                  value={editStock}
+                  onChange={(e) => setEditStock(e.target.value)}
                 />
               </label>
             </div>
             <button
-              className="bg-red-300 p-2 rounded-md text-white hover:bg-red-600 mt-6 ml-16"
+              className="bg-blue-300 p-2 rounded-md text-white hover:bg-blue-600 mt-6 ml-16"
               type="submit"
             >
-              Eliminar producto
+              Guardar cambios
             </button>
           </form>
         </div>
