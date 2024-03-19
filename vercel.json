@@ -1,21 +1,21 @@
 {
     "version": 2,
     "functions": {
-        "api/sales.js": {
-            "runtime": "nodejs16.x",
-            "memory": 1024
-        },
-        "api/sales-post.js": {
-            "runtime": "nodejs16.x",
-            "memory": 1024
-        },
-        "api/sales-delete.js": {
-            "runtime": "nodejs16.x",
-            "memory": 1024
-        },
-        "api/sales-put.js": {
-            "runtime": "nodejs16.x",
-            "memory": 1024
-        }
+      "api/sales.js": {
+        "runtime": "@vercel/node@16",
+        "memory": 1024
+      },
+      "api/sales-post.js": {
+        "runtime": "@vercel/node@16",
+        "memory": 1024
+      },
+      "api/sales-delete.js": {
+        "runtime": "@vercel/node@16",
+        "memory": 1024
+      },
+      "api/sales-put.js": {
+        "runtime": "@vercel/node@16",
+        "memory": 1024
+      }
     }
-}
+  }
