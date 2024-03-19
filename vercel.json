@@ -1,7 +1,5 @@
 {
     "version": 2,
-    "builds": [{ "src": "./src/server/server.js", "use": "@vercel/node" }],
-    "routes": [{ "src": "/(.*)", "dest": "/src/server/server.js" }],
     "functions": {
         "api/sales.js": {
             "runtime": "nodejs16.x",
