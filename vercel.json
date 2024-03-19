@@ -1,18 +1,18 @@
 {
     "functions": {
-        "api/sales.js": {
+        "./api/sales.js": {
             "runtime": "nodejs16.x",
             "memory": 1024
         },
-        "api/sales-post.js": {
+        "./api/sales-post.js": {
             "runtime": "nodejs16.x",
             "memory": 1024
         },
-        "api/sales-delete.js": {
+        "./api/sales-delete.js": {
             "runtime": "nodejs16.x",
             "memory": 1024
         },
-        "api/sales-put.js": {
+        "./api/sales-put.js": {
             "runtime": "nodejs16.x",
             "memory": 1024
         }
