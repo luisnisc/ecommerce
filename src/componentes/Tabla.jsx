@@ -70,7 +70,7 @@ export default function Tabla() {
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/sales/${id}`, {
+      const response = await fetch(`http://192.168.7.151:3000/sales/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -134,7 +134,7 @@ export default function Tabla() {
   // Obtiene los datos de los productos al cargar el componente
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/sales");
+      const response = await fetch("http://192.168.7.151:3000/sales");
       const data = await response.json();
       setData(data);
     };

@@ -20,7 +20,7 @@ export default function FormularioEdicion({ setData, setUpdate, update }) {
       Object.keys(body).forEach((key) => body[key] === "" && delete body[key]);
 
       const response = await fetch(
-        `http://localhost:3000/sales/${editProduct}`,
+        `http://192.168.7.151:3000/sales/${editProduct}`,
         {
           method: "PUT",
           headers: {
@@ -77,7 +77,7 @@ export default function FormularioEdicion({ setData, setUpdate, update }) {
   };
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/sales");
+      const response = await fetch("http://192.168.7.151:3000/sales");
       const data = await response.json();
       setData(data);
     };

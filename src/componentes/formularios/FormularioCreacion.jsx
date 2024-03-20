@@ -8,7 +8,7 @@ export default function FormularioCreacion({ setData }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/sales", {
+      const response = await fetch("http://192.168.7.151:3000/sales", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export default function FormularioCreacion({ setData }) {
   };
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/sales");
+      const response = await fetch("http://192.168.7.151:3000/sales");
       const data = await response.json();
       setData(data);
     };
