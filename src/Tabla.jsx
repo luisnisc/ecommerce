@@ -453,6 +453,7 @@ export default function Tabla() {
                 <input
                   className="border-2 border-gray-500 rounded-md ml-4 p-1 text-black mt-2"
                   type="number"
+                  step="0.01"
                   value={editPrecio}
                   onChange={(e) => setEditPrecio(e.target.value)}
                 />
