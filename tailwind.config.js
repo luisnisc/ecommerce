@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      width:{
+        '43':'10.5em',
+        '45':'11.5em',
+        '46':'12em'
+      },
       margin:{
         
         '100':'10em',
