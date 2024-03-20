@@ -50,7 +50,18 @@ export default function Tabla() {
       return 0;
     });
   }
-
+  /**
+   * Exporta los datos obtenidos en el GET a un archivo JSON.
+   */
+  const exportToJson = () => {
+    const jsonData = JSON.stringify(data);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "data.json";
+    link.click();
+  };
   /**
    * Maneja la eliminación de un producto.
    * @param {Event} event - El evento de click del botón de eliminar.
@@ -142,7 +153,9 @@ export default function Tabla() {
       id="padre"
       className="bg-gray-700 text-gray-300 rounded-md pl-6 pr-6 pt-4 pb-1 min-h-max"
     >
+       <button className="bg-blue-300 p-2 rounded-md text-white hover:bg-blue-600 mb-4" onClick={exportToJson}>Exportar a JSON</button>
       <div className="flex justify-center items-center content-center w-max ">
+       
         <table>
           <thead>
             <tr className="bg-gray-800">
