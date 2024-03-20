@@ -4,7 +4,6 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -98,12 +97,20 @@ app.delete("/sales/:id", async (req, res) => {
     res.status(500).json({ message: "Error al eliminar el producto" });
   }
 });
+
+/**
+ * Actualizar un producto por ID.
+ * @route PUT /sales/:id
+ * @param {number} req.params.id - El ID del producto a actualizar.
+ * @param {Producto} req.body - Los datos actualizados del producto.
+ * @returns {Object} - Un mensaje indicando el éxito de la actualización y el producto actualizado.
+ * @throws {Error} - Si hay un error al actualizar el producto.
+ */
 app.put("/sales/:id", async (req, res) => {
   const { id } = req.params;
-  const update = req.body; // Aquí asumimos que los cambios vienen en el cuerpo de la solicitud
-  console.log(update);
+  const update = req.body;
   try {
-    const product = await Product.findOneAndUpdate({ id: id }, update, { new: true }); // { new: true } devuelve el documento actualizado
+    const product = await Product.findOneAndUpdate({ id: id }, update, { new: true });
 
     if (!product) {
       return res
