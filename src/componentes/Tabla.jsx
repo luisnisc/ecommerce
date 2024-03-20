@@ -1,3 +1,11 @@
+/**
+ * Componente de tabla que muestra una lista de productos.
+ * Permite ordenar los productos por diferentes campos, exportar la lista a JSON,
+ * eliminar productos y paginar la tabla.
+ *
+ * @component
+ * @example
+ */
 import { useState, useEffect } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -10,21 +18,17 @@ import Swal from "sweetalert2";
 
 import "./Tabla.css";
 
-/**
- * Componente de tabla que muestra una lista de productos.
- * @returns {JSX.Element} Elemento JSX que representa la tabla de productos.
- */
 export default function Tabla() {
-  const [data, setData] = useState([]);
-  const [update, setUpdate] = useState(false);
-  const [sortField, setSortField] = useState("id");
-  const [sortArrow, setSortArrow] = useState(false);
-  const [sortDirection, setSortDirection] = useState("asc");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [data, setData] = useState([]); // Estado para almacenar los datos de la tabla
+  const [update, setUpdate] = useState(false); // Estado para actualizar la tabla
+  const [sortField, setSortField] = useState("id"); // Estado para el campo de ordenación
+  const [sortArrow, setSortArrow] = useState(false); // Estado para la dirección de ordenación
+  const [sortDirection, setSortDirection] = useState("asc"); // Estado para la dirección de ordenación
+  const [currentPage, setCurrentPage] = useState(1); // Estado para la página actual
+  const [itemsPerPage, setItemsPerPage] = useState(10); // Estado para la cantidad de elementos por página
 
   /**
-   * Maneja el ordenamiento de la tabla por un campo específico.
+   * Maneja el evento de ordenación de la tabla.
    * @param {string} field - El campo por el cual se va a ordenar la tabla.
    */
   const handleSort = (field) => {
@@ -37,7 +41,6 @@ export default function Tabla() {
     setSortArrow(!sortArrow);
   };
 
-  // Ordena los productos en base al campo seleccionado y la dirección de ordenamiento
   let sortedProducts = [...data];
   if (sortField !== null) {
     sortedProducts.sort((a, b) => {
@@ -50,8 +53,9 @@ export default function Tabla() {
       return 0;
     });
   }
+
   /**
-   * Exporta los datos obtenidos en el GET a un archivo JSON.
+   * Exporta los datos de la tabla a un archivo JSON.
    */
   const exportToJson = () => {
     const jsonData = JSON.stringify(data);
@@ -62,15 +66,16 @@ export default function Tabla() {
     link.download = "data.json";
     link.click();
   };
+
   /**
-   * Maneja la eliminación de un producto.
-   * @param {Event} event - El evento de click del botón de eliminar.
+   * Maneja el evento de eliminación de un producto.
+   * @param {number} id - El ID del producto a eliminar.
    */
   const handleDelete = async (id) => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://192.168.7.151:3000/sales/${id}`, {
+      const response = await fetch(`http://localhost:3000/sales/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -81,8 +86,8 @@ export default function Tabla() {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          html: '<p style="color: #ffffff;">Algo a salido mal!</p>', // Cambia el color aquí
-          footer: '<p style="color: #ffffff;">Producto no encontrado</p>', // Cambia el color aquí
+          html: '<p style="color: #ffffff;">Algo a salido mal!</p>', 
+          footer: '<p style="color: #ffffff;">Producto no encontrado</p>', 
           confirmButtonText: "OK",
           confirmButtonColor: "#de6d6d",
           background: "#272727",
@@ -95,7 +100,6 @@ export default function Tabla() {
       } else {
         console.log(`Producto: ${id} eliminado`);
 
-        // Muestra una alerta de éxito y actualiza los datos de la tabla
         Swal.fire({
           title: "Producto Eliminado",
           text: "",
@@ -115,12 +119,12 @@ export default function Tabla() {
           );
           setData(newData);
 
-          // Comprueba si la página actual tiene datos
+   
           const startIndex = (currentPage - 1) * itemsPerPage;
           const endIndex = startIndex + itemsPerPage;
           const currentPageData = newData.slice(startIndex, endIndex);
 
-          // Si la página actual no tiene datos y no es la primera página, disminuye el número de la página actual en uno
+ 
           if (currentPageData.length === 0 && currentPage > 1) {
             setCurrentPage(currentPage - 1);
           }
@@ -129,12 +133,14 @@ export default function Tabla() {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
-
-  // Obtiene los datos de los productos al cargar el componente
+  /**
+   * Realiza una llamada a la API para obtener los datos de la tabla.
+   * Se ejecuta una vez al cargar el componente.
+   */
+  }
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://192.168.7.151:3000/sales");
+      const response = await fetch("http://localhost:3000/sales");
       const data = await response.json();
       setData(data);
     };
@@ -142,7 +148,6 @@ export default function Tabla() {
     fetchData();
   }, []);
 
-  // Calcula los índices de los elementos a mostrar en la página actual
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedProducts.slice(indexOfFirstItem, indexOfLastItem);
